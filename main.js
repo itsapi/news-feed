@@ -10,7 +10,6 @@ var feeds = [
 var allFeeds = new Array();
 
 $(document).ready(function() {
-
 	var count = 0;
 	$.each(feeds, function () {
 		var feed = new google.feeds.Feed(this);
@@ -26,14 +25,13 @@ $(document).ready(function() {
 			}
 		});
 	});
-
 });
 
 function putInHTML(feedsLoaded) {
 	if (feedsLoaded == feeds.length) {
 		allFeeds.sort(function (a, b) {
-			aDate = new Date(a.publishedDate);
-			bDate = new Date(b.publishedDate);
+			var aDate = new Date(a.publishedDate);
+			var bDate = new Date(b.publishedDate);
 			if (aDate < bDate) {
 				return -1;
 			} else if (aDate > bDate) {
@@ -51,6 +49,7 @@ function putInHTML(feedsLoaded) {
 					'<li>' + entry.categories.join('</li><li>') + '</li>'
 				);
 			}
+			var dispDate = new Date(entry.publishedDate).format("D, d M Y H:i");
 			$('#feed').append(
 				$('<li />').html(
 					$('<h3 />').html(
@@ -60,7 +59,7 @@ function putInHTML(feedsLoaded) {
 					).add(
 						$('<p />').html(entry.contentSnippet)
 					).add(
-						$('<time />').html(entry.publishedDate)
+						$('<time />').html(dispDate)
 					).add(tags)
 				)
 			);
