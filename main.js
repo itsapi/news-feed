@@ -7,7 +7,7 @@ var feeds = [
 	'http://feeds.reuters.com/Reuters/worldNews'
 ];
 
-var allFeeds = new Array(); // Defined here
+var allFeeds = new Array();
 
 $(document).ready(function() {
 
@@ -27,11 +27,10 @@ $(document).ready(function() {
 		});
 	});
 
-
 });
+
 function putInHTML(feedsLoaded) {
 	if (feedsLoaded == feeds.length) {
-		console.log(allFeeds);
 		$.each(allFeeds, function() {
 			var entry = this;
 			$('#feed').append(
@@ -47,6 +46,13 @@ function putInHTML(feedsLoaded) {
 					)
 				)
 			);
+			if (entry.categories.length > 0) {
+				$('#feed:last-child').append(
+					$('<ul class="tags" />').html(
+						'<li>' + entry.categories.join('</li><li>') + '</li>'
+					)
+				)
+			}
 		});
 	}
 }
