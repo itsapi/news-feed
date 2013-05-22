@@ -31,8 +31,14 @@ $(document).ready(function() {
 
 function putInHTML(feedsLoaded) {
 	if (feedsLoaded == feeds.length) {
-		$.each(allFeeds, function() {
+		$.each(allFeeds, function(n) {
 			var entry = this;
+			var tags;
+			if (entry.categories.length > 0) {
+				tags = $('<ul class="tags" />').html(
+					'<li>' + entry.categories.join('</li><li>') + '</li>'
+				);
+			}
 			$('#feed').append(
 				$('<li />').html(
 					$('<h3 />').html(
@@ -43,16 +49,9 @@ function putInHTML(feedsLoaded) {
 						$('<p />').html(entry.contentSnippet)
 					).add(
 						$('<time />').html(entry.publishedDate)
-					)
+					).add(tags)
 				)
 			);
-			if (entry.categories.length > 0) {
-				$('#feed:last-child').append(
-					$('<ul class="tags" />').html(
-						'<li>' + entry.categories.join('</li><li>') + '</li>'
-					)
-				)
-			}
 		});
 	}
 }

@@ -24,6 +24,27 @@ body {
 	-moz-border-radius   :10px;
 }
 
+#feed {
+	list-style: none;
+	padding: 0
+}
+#feed > li {
+	border: 1px solid rgba(50, 50, 50, 0.6);
+	padding: 0;
+	margin: 10px;
+}
+h3 {
+	margin: 0.5em;
+}
+p {
+	margin: 0.5em 0;
+	padding: 10px;
+	border-bottom: 1px solid rgba(50, 50, 50, 0.1);
+}
+time {
+	font-size: small;
+	padding: 0 10px;
+}
 .tags {
 	list-style: none;
 	padding-left: 0;
@@ -32,6 +53,9 @@ body {
 }
 .tags li {
 	display: inline-block;
+	padding: 0 10px;
+}
+.tags li:not(:first-child) {
 	margin: 0 0.3em;
 }
 .tags li:not(:last-child):after {
