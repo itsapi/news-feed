@@ -7,25 +7,31 @@ var feeds = [
 	'http://feeds.reuters.com/Reuters/worldNews'
 ];
 
-$(document).ready(function() {
-	
-	var allFeeds = new Array(); // Defined here
+var allFeeds = new Array(); // Defined here
 
-	var error = 0;
+$(document).ready(function() {
+
+	var count = 0;
 	$.each(feeds, function () {
 		var feed = new google.feeds.Feed(this);
 		feed.setResultFormat('JSON_FORMAT');
-		feed.setNumEntries(1);
+		feed.setNumEntries(4);
 		feed.load(function(result) {
 			if (!result.error) {
-				allFeeds.push(result.feed.entries); // Appended to here
-			} else {
-				error = 1;
+				$.each(result.feed.entries, function() {
+					allFeeds.push(this);
+				});
+				count++;
+				putInHTML(count, allFeeds);
 			}
 		});
 	});
-	console.log(allFeeds); // Nothing in it here!
-	if (!error) {
+
+
+});
+function putInHTML(feedsLoaded) {
+	if (feedsLoaded == feeds.length) {
+		console.log(allFeeds);
 		$.each(allFeeds, function() {
 			var entry = this;
 			$('#feed').append(
@@ -42,7 +48,5 @@ $(document).ready(function() {
 				)
 			);
 		});
-	} else {
-		alert('Error accessing feeds!');
 	}
-});
+}
