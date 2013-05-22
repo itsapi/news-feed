@@ -39,7 +39,7 @@ function putInHTML(feedsLoaded) {
 					$('<h3 />').html(
 						$('<a />').html(
 							entry.title
-						).attr('href', entry.link)
+						).attr('href', entry.link).attr('target', '_blank')
 					).add(
 						$('<p />').html(entry.contentSnippet)
 					).add(
