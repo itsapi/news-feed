@@ -1,7 +1,8 @@
 google.load("feeds", "1");
 
 function initialize() {
-	var feed = new google.feeds.Feed("http://fastpshb.appspot.com/feed/1/fastpshb");
+	var feed = new google.feeds.Feed("http://feeds.bbci.co.uk/news/rss.xml");
+	feed.setNumEntries(10);
 	feed.load(function(result) {
 		if (!result.error) {
 			for (var i = 0; i < result.feed.entries.length; i++) {
