@@ -32,9 +32,27 @@ body {
 	border: 1px solid rgba(50, 50, 50, 0.1);
 	padding: 0;
 	margin: 10px;
+	position: relative;
+	background-color: rgba(0, 0, 0, 0.02);
+}
+#feed > li:hover {
+	background-color: rgba(0, 0, 0, 0.01);
+}
+h1 {
+	margin: 0.5em 0.5em 0 0.5em;
+	font-size: 2.5em;
+	text-align: center;
 }
 h3 {
-	margin: 0.5em;
+	margin: 0.5em 0.5em 0 0.5em;
+	display: inline-block;
+}
+h4 {
+	margin: 0.5em 0.5em 0 0.5em;
+	display: inline-block;
+	position: absolute;
+	right: 0;
+	font-size: 0.9em;
 }
 p {
 	margin: 0.5em 0;
