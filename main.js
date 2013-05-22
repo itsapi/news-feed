@@ -31,7 +31,19 @@ $(document).ready(function() {
 
 function putInHTML(feedsLoaded) {
 	if (feedsLoaded == feeds.length) {
-		$.each(allFeeds, function(n) {
+		allFeeds.sort(function (a, b) {
+			aDate = new Date(a.publishedDate);
+			bDate = new Date(b.publishedDate);
+			if (aDate < bDate) {
+				return -1;
+			} else if (aDate > bDate) {
+				return 1;
+			} else {
+				return 0;
+			}
+		});
+
+		$.each(allFeeds.reverse(), function(n) {
 			var entry = this;
 			var tags;
 			if (entry.categories.length > 0) {
