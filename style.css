@@ -1,6 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Karla);
 
 html {
+	margin    : 0;
 	background: #00a4bc; /* Old browsers */
 	background: -moz-linear-gradient(top,  #00a4bc 0%, #9FEAF4 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00a4bc), color-stop(100%,#9FEAF4)); /* Chrome,Safari4+ */
@@ -8,20 +9,28 @@ html {
 	background: -o-linear-gradient(top,  #00a4bc 0%,#9FEAF4 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top,  #00a4bc 0%,#9FEAF4 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #00a4bc 0%,#9FEAF4 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00a4bc', endColorstr='#9FEAF4',GradientType=0 ); /* IE6-9 */
+	filter    : progid:DXImageTransform.Microsoft.gradient( startColorstr='#00a4bc', endColorstr='#9FEAF4',GradientType=0 ); /* IE6-9 */
 }
 body {
 	font-family: 'Karla', sans-serif;
-	width                : 80%;
+	background :#fcfcfc;
 	min-height           : 80%;
+	width                : 80%;
+	border               : 1px solid #ccc;
+	border-bottom        : 2px solid #bbb;
+	border-top           : 1px solid #ddd;
+	border-radius        : 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius   : 10px;
 	margin               : 5% auto;
-	background           :#fcfcfc;
-	border               :1px solid #ccc;
-	border-bottom        :2px solid #bbb;
-	border-top           :1px solid #ddd;
-	border-radius        :10px;
-	-webkit-border-radius:10px;
-	-moz-border-radius   :10px;
+}
+@media all and (max-width: 640px) {
+	body {
+		width        : 100%;
+		height       : 100%;
+		margin       : 0;
+		border-radius: 0;
+	}
 }
 
 #feed {

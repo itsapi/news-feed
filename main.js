@@ -4,7 +4,13 @@ var feeds = [
 	'http://feeds.bbci.co.uk/news/rss.xml',
 	'http://rss.cnn.com/rss/edition_world.rss',
 	'http://feeds.nytimes.com/nyt/rss/World',
-	'http://feeds.reuters.com/Reuters/worldNews'
+	'http://feeds.reuters.com/Reuters/worldNews',
+	'http://news.sky.com/feeds/rss/home.xml',
+	'http://www.telegraph.co.uk/news/worldnews/rss',
+	'http://feeds.washingtonpost.com/rss/world',
+	'http://online.wsj.com/xml/rss/3_7085.xml',
+	'http://www.channel4.com/news/world-news/rss',
+	'http://feeds.guardian.co.uk/theguardian/world/rss'
 ];
 var total = 20;
 
