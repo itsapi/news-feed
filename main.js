@@ -162,6 +162,9 @@ function putInHTML(feedsLoaded, feeds, allFeeds) {
 				)
 			);
 		});
+		$('#feed li').each(function() {
+			$(this).find('h3').css('margin-right', $(this).find('h4').css('width'));
+		});
 		console.log('Loaded Stories');
 	}
 }
