@@ -43,6 +43,7 @@ $(document).ready(function() {
 		displayFeeds(feeds);
 		return false;
 	});
+	$('nav form').submit();
 });
 
 function displayFeeds(feeds) {
