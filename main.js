@@ -1,17 +1,21 @@
 google.load("feeds", "1");
 
-var defaultFeeds = [
-	'http://bbc.co.uk/news',
-	'http://cnn.com',
-	'http://nytimes.com',
-	'http://reuters.com',
-	'http://news.sky.com',
-	'http://telegraph.co.uk',
-	'http://washingtonpost.com',
-	'http://wsj.com',
-	'http://channel4.com/news',
-	'http://guardian.co.uk'
-];
+if ($.cookie('savedFeeds')) {
+	var defaultFeeds = $.parseJSON($.cookie('savedFeeds'));
+} else {
+	var defaultFeeds = [
+		'http://bbc.co.uk/news',
+		'http://cnn.com',
+		'http://nytimes.com',
+		'http://reuters.com',
+		'http://news.sky.com',
+		'http://telegraph.co.uk',
+		'http://washingtonpost.com',
+		'http://wsj.com',
+		'http://channel4.com/news',
+		'http://guardian.co.uk'
+	];
+}
 
 var total = 100;
 
@@ -66,7 +70,10 @@ $(document).ready(function() {
 		$('nav ul input:checked').each(function() {
 			feeds.push($(this).attr('value'));
 		});
-		
+
+		$.removeCookie('savedFeeds');
+		$.cookie('savedFeeds', JSON.stringify(feeds), { expires: 30 });
+
 		displayFeeds(feeds, search);
 		return false;
 	});
