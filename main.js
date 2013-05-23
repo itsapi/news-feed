@@ -1,6 +1,6 @@
 google.load("feeds", "1");
 
-var feeds = [
+var defaultFeeds = [
 	'http://feeds.bbci.co.uk/news/rss.xml',
 	'http://rss.cnn.com/rss/edition_world.rss',
 	'http://feeds.nytimes.com/nyt/rss/World',
@@ -12,10 +12,41 @@ var feeds = [
 	'http://www.channel4.com/news/world-news/rss',
 	'http://feeds.guardian.co.uk/theguardian/world/rss'
 ];
+
 var total = 20;
 
-var allFeeds = new Array();
 $(document).ready(function() {
+
+	$.each(defaultFeeds, function(i) {
+		$('nav ul').append(
+			$('<li />').html(
+				$('<input />')
+				.attr('checked', '')
+				.attr('type', 'checkbox')
+				.attr('title', this)
+				.add(
+					$('<label />')
+					.html(getDomainName(this))
+				)
+			)
+		);
+	});
+
+	var feeds = []; // The feed URLs
+	
+	$('nav form').submit(function() {
+		feeds = [];
+		$('nav input:checked').each(function() {
+			feeds.push($(this).attr('title'));
+		});
+		
+		displayFeeds(feeds);
+		return false;
+	});
+});
+
+function displayFeeds(feeds) {
+	var allFeeds = []; // The feed contents
 	var count = 0;
 	$.each(feeds, function () {
 		var feed = new google.feeds.Feed(this);
@@ -27,13 +58,13 @@ $(document).ready(function() {
 					allFeeds.push(this);
 				});
 				count++;
-				putInHTML(count, allFeeds);
+				putInHTML(count, feeds, allFeeds);
 			}
 		});
 	});
-});
+}
 
-function putInHTML(feedsLoaded) {
+function putInHTML(feedsLoaded, feeds, allFeeds) {
 	if (feedsLoaded == feeds.length) {
 		allFeeds.sort(function (a, b) {
 			var aDate = new Date(a.publishedDate);
@@ -47,6 +78,7 @@ function putInHTML(feedsLoaded) {
 			}
 		});
 
+		$('#feed').empty();
 		$.each(allFeeds.reverse(), function(n) {
 			var entry = this;
 			var tags;
@@ -60,11 +92,17 @@ function putInHTML(feedsLoaded) {
 			$('#feed').append(
 				$('<li />').html(
 					$('<h3 />').html(
-						$('<a />').html(
-							entry.title
-						).attr('href', entry.link).attr('target', '_blank')
+						$('<a />')
+						.html(entry.title)
+						.attr('href', entry.link)
+						.attr('target', '_blank')
 					).add(
-						$('<h4 />').html(source)
+						$('<h4 />').html(
+							$('<a />')
+							.attr('href', 'http://' + source)
+							.attr('target', '_blank')
+							.html(source)
+						)
 					).add(
 						$('<p />').html(entry.contentSnippet)
 					).add(

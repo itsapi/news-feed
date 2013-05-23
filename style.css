@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Karla);
+/*@import url(http://fonts.googleapis.com/css?family=Karla);*/
 
 html {
 	margin    : 0;
@@ -12,10 +12,10 @@ html {
 	filter    : progid:DXImageTransform.Microsoft.gradient( startColorstr='#00a4bc', endColorstr='#9FEAF4',GradientType=0 ); /* IE6-9 */
 }
 body {
-	font-family: 'Karla', sans-serif;
-	background :#fcfcfc;
+	font-family          : 'Karla', sans-serif;
+	background           : #fcfcfc;
 	min-height           : 80%;
-	width                : 80%;
+	width                : 90%;
 	border               : 1px solid #ccc;
 	border-bottom        : 2px solid #bbb;
 	border-top           : 1px solid #ddd;
@@ -32,15 +32,31 @@ body {
 		border-radius: 0;
 	}
 }
+body > * {
+	margin: 10px;
+}
+
+nav {
+	z-index: 11;
+	float: right;
+	right: 0;
+	width: 250px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 10px 0;
+	margin: 0 10px;
+	background-color: rgba(0, 0, 0, 0.02);
+	position: relative;
+}
 
 #feed {
+	z-index: 9;
 	list-style: none;
 	padding: 0
 }
 #feed > li {
-	border: 1px solid rgba(50, 50, 50, 0.1);
-	padding: 0;
-	margin: 10px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 10px 0;
+	margin: 10px 0;
 	position: relative;
 	background-color: rgba(0, 0, 0, 0.02);
 }
@@ -48,43 +64,53 @@ body {
 	background-color: rgba(0, 0, 0, 0.01);
 }
 h1 {
-	margin: 0.5em 0.5em 0 0.5em;
+	margin: 0.5em;
 	font-size: 2.5em;
 	text-align: center;
 }
 h3 {
-	margin: 0.5em 0.5em 0 0.5em;
+	margin: 0 10px;
 	display: inline-block;
 }
 h4 {
-	margin: 0.5em 0.5em 0 0.5em;
+	margin: 0 10px;
 	display: inline-block;
 	position: absolute;
 	right: 0;
 	font-size: 0.9em;
 }
+h4 a {
+	text-decoration: none;
+	color: black;
+	font-weight: 700;
+	position: relative;
+}
+h4 a:hover {
+	color: rgba(0, 0, 0, 0.7);
+}
 p {
-	margin: 0.5em 0;
+	margin: 0;
 	padding: 10px;
 	border-bottom: 1px solid rgba(50, 50, 50, 0.1);
 }
 time {
 	font-size: small;
-	padding: 0 10px;
+	margin: 10px;
+	padding: 0;
+	font-weight: 700;
 }
 .tags {
 	list-style: none;
-	padding-left: 0;
-	margin: 5px 0;
+	margin: 0 10px;
+	padding: 0;
 	font-size: small;
 }
 .tags li {
 	display: inline-block;
-	padding: 0 10px;
-}
-.tags li:not(:first-child) {
-	margin: 0 0.3em;
+	padding: 0;
+	margin: 0;
 }
 .tags li:not(:last-child):after {
-	content: ','
+	content: ',';
+	margin-right: 0.5em;
 }
