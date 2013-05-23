@@ -68,6 +68,7 @@ $(document).ready(function() {
 		});
 		
 		displayFeeds(feeds, search);
+		$('nav input[type=text]').val('');
 		return false;
 	});
 	$('nav form').submit();
