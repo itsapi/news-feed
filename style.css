@@ -40,7 +40,7 @@ nav {
 	display: none;
 	z-index: 11;
 	position: fixed;
-	right: -230px;
+	right: -260px;
 	top: 0;
 	width: 250px;
 	height: 100%;
@@ -56,12 +56,15 @@ nav {
 }
 nav:before {
 	content: '\00AB';
+	border-left: 1px solid rgba(0, 0, 0, 0.1);
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 	font-size: 2em;
 	background-color: white;
 	border-radius: 5px 0 0 5px;
 	position: relative;
 	top: 45%;
-	right: 0.9em;
+	right: 31px;
 }
 nav:hover {
 	right: 0;
