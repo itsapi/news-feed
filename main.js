@@ -44,6 +44,7 @@ $(document).ready(function() {
 		return false;
 	});
 	$('nav form').submit();
+	$('nav').show();
 });
 
 function displayFeeds(feeds) {

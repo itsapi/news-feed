@@ -37,15 +37,41 @@ body > * {
 }
 
 nav {
+	display: none;
 	z-index: 11;
-	float: right;
-	right: 0;
+	position: fixed;
+	right: -230px;
+	top: 0;
 	width: 250px;
+	height: 100%;
 	border: 1px solid rgba(0, 0, 0, 0.1);
-	padding: 10px 0;
-	margin: 0 10px;
-	background-color: rgba(0, 0, 0, 0.02);
+	padding: 10px;
+	margin: 0;
+	background-color: rgba(255, 255, 255, 1);
+	-webkit-transition: all 1s;
+	-moz-transition: all 1s;
+	-ms-transition: all 1s;
+	-o-transition: all 1s;
+	transition: all 1s;
+}
+nav:before {
+	content: '\00AB';
+	font-size: 2em;
+	background-color: white;
+	border-radius: 5px 0 0 5px;
 	position: relative;
+	top: 45%;
+	right: 0.9em;
+}
+nav:hover {
+	right: 0;
+	padding: 10px;
+}
+nav ul {
+	padding: 0;
+}
+nav li {
+	list-style: none;
 }
 
 #feed {
