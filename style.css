@@ -37,10 +37,9 @@ body > * {
 }
 
 nav {
-	display: none;
 	z-index: 11;
 	position: fixed;
-	right: -260px;
+	right: -250px;
 	top: 0;
 	width: 250px;
 	height: 100%;
@@ -53,6 +52,8 @@ nav {
 	-ms-transition: all 1s;
 	-o-transition: all 1s;
 	transition: all 1s;
+	-webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 1);
+	box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 1);
 }
 nav:before {
 	content: '\00AB';
@@ -65,10 +66,13 @@ nav:before {
 	position: relative;
 	top: 45%;
 	right: 31px;
+	-webkit-box-shadow: -4px 0px 6px -3px rgba(0, 0, 0, 1);
+	box-shadow: -4px 0px 6px -3px rgba(0, 0, 0, 1);
 }
 nav:hover {
 	right: 0;
 	padding: 10px;
+	margin: 0;
 }
 nav ul {
 	padding: 0;

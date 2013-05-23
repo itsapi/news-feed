@@ -1,32 +1,35 @@
 google.load("feeds", "1");
 
 var defaultFeeds = [
-	'http://feeds.bbci.co.uk/news/rss.xml',
-	'http://rss.cnn.com/rss/edition_world.rss',
-	'http://feeds.nytimes.com/nyt/rss/World',
-	'http://feeds.reuters.com/Reuters/worldNews',
-	'http://news.sky.com/feeds/rss/home.xml',
-	'http://www.telegraph.co.uk/news/worldnews/rss',
-	'http://feeds.washingtonpost.com/rss/world',
-	'http://online.wsj.com/xml/rss/3_7085.xml',
-	'http://www.channel4.com/news/world-news/rss',
-	'http://feeds.guardian.co.uk/theguardian/world/rss'
+	'http://bbc.co.uk/news',
+	'http://cnn.com',
+	'http://nytimes.com',
+	'http://reuters.com',
+	'http://news.sky.com',
+	'http://telegraph.co.uk',
+	'http://washingtonpost.com',
+	'http://wsj.com',
+	'http://channel4.com/news',
+	'http://guardian.co.uk'
 ];
 
-var total = 20;
+var total = 100;
 
 $(document).ready(function() {
 
-	$.each(defaultFeeds, function(i) {
+	$.each(defaultFeeds, function() {
 		$('nav ul').append(
 			$('<li />').html(
-				$('<input />')
-				.attr('checked', '')
-				.attr('type', 'checkbox')
-				.attr('title', this)
-				.add(
-					$('<label />')
-					.html(getDomainName(this))
+				$('<label />').html(
+					$('<input />')
+					.attr('checked', '')
+					.attr('type', 'checkbox')
+					.attr('value', this)
+					.add(
+						$('<span />').html(
+							getDomainName(this)
+						)
+					)
 				)
 			)
 		);
@@ -35,34 +38,72 @@ $(document).ready(function() {
 	var feeds = []; // The feed URLs
 	
 	$('nav form').submit(function() {
+		var search = $('nav form input#search').val();
+		var userURL = $('nav form input#url').val();
+		if (userURL != '') {
+			if(userURL.substr(0,7) != 'http://'){
+				userURL = 'http://' + userURL;
+			}
+			console.log(userURL);
+			$('nav ul').append(
+				$('<li />').html(
+					$('<label />').html(
+						$('<input />')
+						.attr('checked', '')
+						.attr('type', 'checkbox')
+						.attr('value', userURL)
+						.add(
+							$('<span />').html(
+								getDomainName(userURL)
+							)
+						)
+					)
+				)
+			)
+		}
+
 		feeds = [];
-		$('nav input:checked').each(function() {
-			feeds.push($(this).attr('title'));
+		$('nav ul input:checked').each(function() {
+			feeds.push($(this).attr('value'));
 		});
 		
-		displayFeeds(feeds);
+		displayFeeds(feeds, search);
 		return false;
 	});
 	$('nav form').submit();
-	$('nav').show();
 });
 
-function displayFeeds(feeds) {
+function displayFeeds(feeds, search) {
 	var allFeeds = []; // The feed contents
 	var count = 0;
 	$.each(feeds, function () {
-		var feed = new google.feeds.Feed(this);
-		feed.setResultFormat('JSON_FORMAT');
-		feed.setNumEntries(parseInt(total/feeds.length));
-		feed.load(function(result) {
+
+		// Get the feed URL
+		var query = 'site:' + this + ' ' + search;
+		google.feeds.findFeeds(query, function(result) {
 			if (!result.error) {
-				$.each(result.feed.entries, function() {
-					allFeeds.push(this);
-				});
-				count++;
-				putInHTML(count, feeds, allFeeds);
+				// Get the feed
+				if (result.entries.length > 0) {
+					var feedURL = result.entries[0].url;
+					console.log(feedURL);
+					var feed = new google.feeds.Feed(feedURL);
+					feed.setResultFormat('JSON_FORMAT');
+					feed.setNumEntries(parseInt(total/feeds.length));
+					feed.load(function(result) {
+						if (!result.error) {
+							$.each(result.feed.entries, function() {
+								allFeeds.push(this);
+							});
+							count++;
+							putInHTML(count, feeds, allFeeds);
+						}
+					});
+				} else {
+					// No Results
+				}
 			}
 		});
+
 	});
 }
 
@@ -113,18 +154,12 @@ function putInHTML(feedsLoaded, feeds, allFeeds) {
 				)
 			);
 		});
+		console.log('Loaded Stories');
 	}
 }
 
-function getDomainName(url) {
-	domain_name_parts = url.match(/:\/\/(.[^/]+)/)[1].split('.');
-	if(domain_name_parts.length >= 3){
-		domain_name_parts[0] = '';
-	}
-	var domain = domain_name_parts.join('.');
-	if(domain.indexOf('.') == 0) {
-		return domain.substr(1);
-	} else {
-		return domain;
-	}
+function getDomainName(data) {
+	var a = document.createElement('a');
+	a.href = data;
+	return a.hostname;
 }
