@@ -1,6 +1,3 @@
 {
-	"replace-keys": false,
-	"grunt": false,
-	"output": "/var/www/projects/news_feed",
-	"ignore": []
+	"output": "/var/www/projects/news_feed"
 }
