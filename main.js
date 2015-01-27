@@ -95,16 +95,16 @@ function displayFeeds(feeds, search) {
 		google.feeds.findFeeds(query, function(result) {
 			if (result.error) {
 			  console.log('Error finding feed');
-			  next();
+			  return next();
 			}
 			if (result.entries.length <= 0) {
 			  console.log('No results for feed');
-			  next();
+			  return next();
 			}
 			var feedURL = result.entries[0].url;
 			if (feedURL === '') {
 			  console.log('Feed not found');
-			  next();
+			  return next();
 			}
 			console.log('Fetching:', feedURL);
 			var feed = new google.feeds.Feed(feedURL);
@@ -114,12 +114,12 @@ function displayFeeds(feeds, search) {
 			  console.log(result)
 				if (result.error) {
 				  console.log('Error fetching feed');
-				  next();
+				  return next();
 				}
 				$.each(result.feed.entries, function() {
 					allFeeds.push(this);
 				});
-				next();
+				return next();
 			});
 		});
 
