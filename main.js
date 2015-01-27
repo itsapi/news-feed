@@ -84,6 +84,10 @@ $(document).ready(function() {
 function displayFeeds(feeds, search) {
 	var allFeeds = []; // The feed contents
 	var count = 0;
+	function next() {
+		count++;
+		putInHTML(count, feeds, allFeeds);
+	}
 	$.each(feeds, function () {
 
 		// Get the feed URL
@@ -91,16 +95,16 @@ function displayFeeds(feeds, search) {
 		google.feeds.findFeeds(query, function(result) {
 			if (result.error) {
 			  console.log('Error finding feed');
-			  return;
+			  next();
 			}
 			if (result.entries.length <= 0) {
 			  console.log('No results for feed');
-			  return;
+			  next();
 			}
 			var feedURL = result.entries[0].url;
 			if (feedURL === '') {
 			  console.log('Feed not found');
-			  return;
+			  next();
 			}
 			console.log('Fetching:', feedURL);
 			var feed = new google.feeds.Feed(feedURL);
@@ -110,13 +114,12 @@ function displayFeeds(feeds, search) {
 			  console.log(result)
 				if (result.error) {
 				  console.log('Error fetching feed');
-				  return;
+				  next();
 				}
 				$.each(result.feed.entries, function() {
 					allFeeds.push(this);
 				});
-				count++;
-				putInHTML(count, feeds, allFeeds);
+				next();
 			});
 		});
 
