@@ -89,27 +89,35 @@ function displayFeeds(feeds, search) {
 		// Get the feed URL
 		var query = 'site:' + this + ' ' + search;
 		google.feeds.findFeeds(query, function(result) {
-			if (!result.error) {
-				// Get the feed
-				if (result.entries.length > 0) {
-					var feedURL = result.entries[0].url;
-					console.log(feedURL);
-					var feed = new google.feeds.Feed(feedURL);
-					feed.setResultFormat('JSON_FORMAT');
-					feed.setNumEntries(parseInt(total/feeds.length));
-					feed.load(function(result) {
-						if (!result.error) {
-							$.each(result.feed.entries, function() {
-								allFeeds.push(this);
-							});
-							count++;
-							putInHTML(count, feeds, allFeeds);
-						}
-					});
-				} else {
-					// No Results
-				}
+			if (result.error) {
+			  console.log('Error finding feed');
+			  return;
 			}
+			if (result.entries.length <= 0) {
+			  console.log('No results for feed');
+			  return;
+			}
+			var feedURL = result.entries[0].url;
+			if (feedURL === '') {
+			  console.log('Feed not found');
+			  return;
+			}
+			console.log('Fetching:', feedURL);
+			var feed = new google.feeds.Feed(feedURL);
+			feed.setResultFormat('JSON_FORMAT');
+			feed.setNumEntries(parseInt(total/feeds.length));
+			feed.load(function(result) {
+			  console.log(result)
+				if (result.error) {
+				  console.log('Error fetching feed');
+				  return;
+				}
+				$.each(result.feed.entries, function() {
+					allFeeds.push(this);
+				});
+				count++;
+				putInHTML(count, feeds, allFeeds);
+			});
 		});
 
 	});
