@@ -1,4 +1,4 @@
-google.load("feeds", "1");
+google.load('feeds', '1');
 
 if ($.cookie('savedFeeds')) {
 	var defaultFeeds = $.parseJSON($.cookie('savedFeeds'));
