@@ -91,19 +91,19 @@ function displayFeeds(feeds, search) {
 		google.feeds.findFeeds(query, function(result) {
 		  
 			if (result.error) {
-			  console.log('Error finding feed');
-			  return count--;
+                console.log('Error finding feed');
+                return count--;
 			}
 			
 			if (result.entries.length <= 0) {
-			  console.log('No results for feed');
-        return count--;
+		        console.log('No results for feed');
+                return count--;
 			}
 			
 			var feedURL = result.entries[0].url;
 			if (feedURL === '') {
-			  console.log('Feed not found');
-        return count--;
+                console.log('Feed not found');
+                return count--;
 			}
 			
 			console.log('Fetching:', feedURL);
@@ -113,8 +113,8 @@ function displayFeeds(feeds, search) {
 			
 			feed.load(function(result) {
 				if (result.error) {
-				  console.log('Error fetching feed');
-          return count--;
+                    console.log('Error fetching feed');
+                    return count--;
 				}
 			
 				$.each(result.feed.entries, function() {
@@ -123,11 +123,10 @@ function displayFeeds(feeds, search) {
 			
 				count--;
 				if (count === 0) {
-          putInHTML(allFeeds);
-        }
+                    putInHTML(allFeeds);
+                }
 			});
 		});
-
 	});
 }
 
@@ -148,7 +147,7 @@ function putInHTML(allFeeds) {
 	$.each(allFeeds.reverse(), function(n) {
 		var entry = this;
 		var tags;
-		if (entry.categories.length > 0) {
+	    if (entry.categories.length > 0) {
 			tags = $('<ul class="tags" />').html(
 				'<li>' + entry.categories.join('</li><li>') + '</li>'
 			);
